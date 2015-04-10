@@ -17,8 +17,8 @@ import org.specs2.matcher.FutureMatchers.await
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.libs.iteratee._
 import org.slf4j.LoggerFactory
-import com.netaporter.uri.Uri
-import com.netaporter.uri.Uri
+//import com.netaporter.uri.Uri
+//import com.netaporter.uri.Uri
 
 class DockerApiSpec extends Specification with DefaultDockerAuth {
 

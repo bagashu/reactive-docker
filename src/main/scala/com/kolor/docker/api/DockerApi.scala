@@ -410,6 +410,24 @@ trait DockerContainerApi extends DockerApiHelper {
     }
   }
   
+  def startContainer(id: ContainerId, config: Option[JsValue] = None)(implicit docker: DockerClient): Future[Boolean] = {
+    val req = config match {
+      case Some(cfg) => url(Endpoints.containerStart(id).toString).POST <<
+        Json.prettyPrint(cfg) <:< Map("Content-Type" -> "application/json")
+      case _ => url(Endpoints.containerStart(id).toString).POST <<
+        Json.prettyPrint(Json.parse( """{}""")) <:< Map("Content-Type" -> "application/json")
+    }
+    docker.dockerRequest(req).map {
+      case Right(resp) if (resp.getStatusCode() == 200) => true
+      case Right(resp) if (resp.getStatusCode() == 204) => true
+      case Right(resp) if (resp.getStatusCode() == 304) => true
+      case Right(resp) if (resp.getStatusCode() == 404) => throw new NoSuchContainerException(id, docker)
+      case Right(resp) => throw new DockerRequestException(s"unable to start container $id (StatusCode: ${resp.getStatusCode()}): ${resp.getStatusText()}", docker, None, Some(req))
+      case Left(t) => throw new DockerRequestException(s"unable to start container $id", docker, Some(t), Some(req))
+    }
+  } 
+
+  
   /**
    * stop a container
    * note: throws an exception is container is not running

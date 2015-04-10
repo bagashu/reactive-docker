@@ -2,9 +2,9 @@ organization := "org.almoehi"
 
 name := "reactive-docker"
 
-version := "0.1-SNAPSHOT"
+//version := "0.1-SNAPSHOT"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.5"
 
 resolvers += Resolver.sonatypeRepo("releases")
 
@@ -60,7 +60,7 @@ val logbackVer = "1.0.9"
 
 libraryDependencies ++= Seq(
             //"org.scalaz.stream" %% "scalaz-stream" % "0.3.1",
-            "com.netaporter" %% "scala-uri" % "0.4.2",
+            //"com.netaporter" %% "scala-uri" % "0.4.2",
             "com.typesafe.play" %% "play-json" % "2.3.4",
             "com.typesafe.play" %% "play-iteratees" % "2.3.4",
             // "com.typesafe.akka" %% "akka-actor" % "2.4-SNAPSHOT",

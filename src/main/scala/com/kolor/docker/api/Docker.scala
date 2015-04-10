@@ -187,11 +187,11 @@ object Docker {
 
   def apply(): DockerClient = {
     System.getenv("DOCKER_HOST") match {
-      case str if (str.nonEmpty) =>
-        val uri = com.netaporter.uri.Uri.parse(str)
-        val host = uri.host.getOrElse("localhost")
-        val port = uri.port.getOrElse(2375)
-        Docker.apply(host, port)
+//      case str if (str.nonEmpty) =>
+//        val uri = com.netaporter.uri.Uri.parse(str)
+//        val host = uri.host.getOrElse("localhost")
+//        val port = uri.port.getOrElse(2375)
+//        Docker.apply(host, port)
       case _ => throw new DockerException {
         override def message: String = "unable to read DOCKER_HOST env"
       }

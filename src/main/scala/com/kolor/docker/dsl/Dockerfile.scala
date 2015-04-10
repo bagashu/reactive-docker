@@ -308,6 +308,7 @@ case class Dockerfile(baseImage: String, tag: Option[String] = None) {
            includeFileList.map{f => 
              //println(s"[+] ${f.getPath}")
              val entry = new TarArchiveEntry(f, f.getPath())
+             tarOs.setLongFileMode(2)
              tarOs.putArchiveEntry(entry)
              IOUtils.copy(new BufferedInputStream(new FileInputStream(f)), tarOs)
              tarOs.closeArchiveEntry
