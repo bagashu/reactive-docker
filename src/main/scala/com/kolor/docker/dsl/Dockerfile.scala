@@ -284,6 +284,7 @@ case class Dockerfile(baseImage: String, tag: Option[String] = None) {
            tarOs = new TarArchiveOutputStream(
                 new GZIPOutputStream(
                      new BufferedOutputStream(new FileOutputStream(file))))
+            tarOs.setLongFileMode(2)
            
            // add Dockerfile
            val dockerfileEntry = new TarArchiveEntry("Dockerfile")
@@ -308,9 +309,10 @@ case class Dockerfile(baseImage: String, tag: Option[String] = None) {
            includeFileList.map{f => 
              //println(s"[+] ${f.getPath}")
              val entry = new TarArchiveEntry(f, f.getPath())
-             tarOs.setLongFileMode(2)
              tarOs.putArchiveEntry(entry)
-             IOUtils.copy(new BufferedInputStream(new FileInputStream(f)), tarOs)
+             val x =  new BufferedInputStream(new FileInputStream(f))
+             IOUtils.copy(x, tarOs)
+             x.close()
              tarOs.closeArchiveEntry
            }
            
